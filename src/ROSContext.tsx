@@ -4,6 +4,7 @@ import ROSLIB from 'roslib';
 // Define the type for the ROS context value
 interface ROSContextType {
 	ros: ROSLIB.Ros | null;
+	server: string;
 	loading: boolean;
 	status: 'Connected' | 'Disconnected' | null;
 	message: string | null;
@@ -24,11 +25,14 @@ export function ROSProvider({ children }: ROSProviderProps) {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [status, setStatus] = useState<'Connected' | 'Disconnected' | null>(null);
 	const [message, setMessage] = useState<string | null>(null);
+	const [server, setServer] = useState<string>('');
 
 	// Function to initialize ROS connection
 	function initializeROS(ip: string, port: string) {
 		const url = `ws://${ip}:${port}`;
 		setLoading(true);
+
+		setServer(ip);
 
 		const rosConnection = new ROSLIB.Ros({ url });
 
@@ -52,7 +56,7 @@ export function ROSProvider({ children }: ROSProviderProps) {
 	}
 
 	return (
-		<ROSContext.Provider value={{ ros, loading, status, message, initializeROS }}>
+		<ROSContext.Provider value={{ ros, loading, server, status, message, initializeROS }}>
 			{children}
 		</ROSContext.Provider>
 	);
