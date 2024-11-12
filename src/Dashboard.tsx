@@ -104,6 +104,7 @@ const NetworkPing: React.FC = () => {
 				timeout: 1000
 			}).then((result) => {
 				console.log(result);
+				setPing(result);
 			})
 		}, 1000);
 		return () => {
@@ -111,9 +112,9 @@ const NetworkPing: React.FC = () => {
 		}
 	}, []);
 
-	return <div>
-		Network ping: {ping}
-	</div>;
+	return <span>
+		Network RTT: {ping}ms
+	</span>;
 }
 
 const ROSOut: React.FC<{ message: ROSLIB.Message }> = ({ message }) => {
