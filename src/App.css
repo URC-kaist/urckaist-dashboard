@@ -1,0 +1,13 @@
+.video-container {
+  height: 400px; /* Fixed height */
+  width: 100%; /* Adapt width to container or screen */
+  position: relative;
+  overflow: hidden;
+}
+
+.video-container video {
+  height: 100%; /* Match container height */
+  width: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensure the video covers the container */
+}
+
