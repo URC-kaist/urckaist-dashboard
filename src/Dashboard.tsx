@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useROS } from './ROSContext';
 import VideoStream from './VideoStream';
-import ROSLIB from 'roslib';
 import { invoke } from '@tauri-apps/api/core';
 import './Dashboard.css';
 import Logs from './Logs';
+import Controller from './Controller';
 
 const Dashboard: React.FC = () => {
   const { ros } = useROS();
@@ -99,7 +99,8 @@ const Dashboard: React.FC = () => {
             </tbody>
           </table>
         </main>
-        <aside className="dashboard-logs">
+        <aside className="dashboard-control">
+          <Controller />
           <Logs />
         </aside>
       </section>
@@ -118,7 +119,7 @@ const NetworkPing: React.FC = () => {
         host: server,
         timeout: 1000
       }).then((result) => {
-        setPing(result);
+        setPing(result as number);
       })
     }, 1000);
     return () => {

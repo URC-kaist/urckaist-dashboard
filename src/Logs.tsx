@@ -1,12 +1,24 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ROSLIB from 'roslib';
 import { useROS } from './ROSContext'; // Import the ROS context
+import './Logs.css'; // Import the CSS file
+
+// Define the log levels with their properties
+const LOG_LEVELS = [
+  { level: 10, name: 'DEBUG', color: '#0000FF' },
+  { level: 20, name: 'INFO', color: '#00FF00' },
+  { level: 30, name: 'WARN', color: '#FFFF00' },
+  { level: 40, name: 'ERROR', color: '#FF0000' },
+  { level: 50, name: 'FATAL', color: '#FF00FF' },
+];
 
 const Logs: React.FC = () => {
   const { ros } = useROS();
   const [messages, setMessages] = useState<ROSLIB.Message[]>([]);
-  const [autoScroll, setAutoScroll] = useState(true); // Autoscroll toggle state
-  const logContainerRef = useRef<HTMLDivElement>(null); // Reference for the log container
+  const [autoScroll, setAutoScroll] = useState(true);
+  const [filters, setFilters] = useState<number[]>(LOG_LEVELS.map((lvl) => lvl.level));
+  const [isSettingsMinimized, setIsSettingsMinimized] = useState(false);
+  const logContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!ros) return;
@@ -32,58 +44,97 @@ const Logs: React.FC = () => {
     }
   }, [messages, autoScroll]); // Trigger when messages or autoscroll status changes
 
+  // Toggle Autoscroll
   const toggleAutoScroll = () => {
     setAutoScroll((prev) => !prev);
   };
 
+  // Toggle individual log level filters
+  const toggleFilter = (level: number) => {
+    setFilters((prevFilters) =>
+      prevFilters.includes(level)
+        ? prevFilters.filter((lvl) => lvl !== level)
+        : [...prevFilters, level]
+    );
+  };
+
+  const toggleSettingsMinimized = () => {
+    setIsSettingsMinimized((prev) => !prev);
+  };
+
+  // Filter messages based on selected log levels
+  const filteredMessages = messages.filter((msg) => filters.includes(msg.level));
+
   return (
     <div className="logs-container">
+
       <div className="logs-header">
-        <h2>Logs</h2>
-        <button onClick={toggleAutoScroll}>
-          {autoScroll ? 'Disable Autoscroll' : 'Enable Autoscroll'}
+        <button
+          className="minimize-button"
+          onClick={toggleSettingsMinimized}
+          aria-label={isSettingsMinimized ? 'Expand Filters' : 'Minimize Filters'}
+        >
+          {(isSettingsMinimized ? '▼' : '▲') + ' Log Settings'}
         </button>
+        {!isSettingsMinimized && (
+          <div className="settings-container">
+            <div className="autoscroll-container">
+              <label className="autoscroll-toggle">
+                <input
+                  type="checkbox"
+                  checked={autoScroll}
+                  onChange={toggleAutoScroll}
+                />
+                <span className="checkbox-custom"></span>
+                Autoscroll
+              </label>
+            </div>
+            <div className="filters-container">
+              <div className="filters-box">
+                <div className="log-filters">
+                  {LOG_LEVELS.map((lvl) => (
+                    <label key={lvl.level} className="filter-toggle">
+                      <input
+                        type="checkbox"
+                        checked={filters.includes(lvl.level)}
+                        onChange={() => toggleFilter(lvl.level)}
+                      />
+                      <span className="checkbox-custom"></span>
+                      <span className="filter-label" style={{ color: lvl.color }}>
+                        {lvl.name}
+                      </span>
+                    </label>
+                  ))}
+
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
+
       <div className="log-content" ref={logContainerRef}>
-        {messages.map((message, index) => (
+        {filteredMessages.map((message, index) => (
           <LogEntry key={index} message={message} />
         ))}
       </div>
-    </div>
+    </div >
   );
 };
 
 const LogEntry: React.FC<{ message: ROSLIB.Message }> = ({ message }) => {
-  let level = '';
-  let level_color = '';
   const msg = message as any;
 
-  switch (msg.level) {
-    case 10:
-      level = 'DEBUG';
-      level_color = '#0000FF';
-      break;
-    case 20:
-      level = 'INFO';
-      level_color = '#00FF00';
-      break;
-    case 30:
-      level = 'WARN';
-      level_color = '#FFFF00';
-      break;
-    case 40:
-      level = 'ERROR';
-      level_color = '#FF0000';
-      break;
-    case 50:
-      level = 'FATAL';
-      level_color = '#FF00FF';
-      break;
-  }
+  const logLevel = LOG_LEVELS.find((lvl) => lvl.level === msg.level) || {
+    name: 'UNKNOWN',
+    color: '#FFFFFF',
+  };
 
   return (
-    <div>
-      <span style={{ color: level_color }}>{level} </span>
+    <div className="log-entry">
+      <span className="log-level" style={{ color: logLevel.color }}>
+        {logLevel.name}
+      </span>{' '}
       {formatTimestamp(msg.stamp.sec)} [{msg.name}] {msg.msg}
     </div>
   );

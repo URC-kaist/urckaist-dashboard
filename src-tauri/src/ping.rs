@@ -3,7 +3,7 @@ use std::net::{IpAddr, ToSocketAddrs};
 #[tauri::command]
 pub fn ping_ip(host: String, timeout: u32) -> Result<u32, String> {
     // Resolve the hostname to an IP address
-    let addr = format!("{}:0", host)
+    let addr = format!("{}:9090", host)
         .to_socket_addrs()
         .map_err(|e| e.to_string())?
         .find(|addr| matches!(addr.ip(), IpAddr::V4(_) | IpAddr::V6(_)))
