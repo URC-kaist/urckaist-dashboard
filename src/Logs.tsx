@@ -63,7 +63,7 @@ const Logs: React.FC = () => {
   };
 
   // Filter messages based on selected log levels
-  const filteredMessages = messages.filter((msg) => filters.includes(msg.level));
+  const filteredMessages = messages.filter((msg) => filters.includes((msg as any).level));
 
   return (
     <div className="logs-container">

@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useROS } from './ROSContext';
+import React from 'react';
 import GamepadVisualizer from './GamepadVisualizer';
 
 const Controller: React.FC = () => {
-  const { ros } = useROS();
-
   return <div>
     <GamepadVisualizer />
   </div>;

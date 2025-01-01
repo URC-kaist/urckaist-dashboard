@@ -3,7 +3,7 @@ import { useROS } from "./ROSContext";
 import ROSLIB from "roslib";
 import "./GamepadVisualizer.css";
 
-const GamepadVisualizer = () => {
+const GamepadVisualizer: React.FC = () => {
   const [connectedGamepadIndex, setConnectedGamepadIndex] = useState<number | null>(null);
   const [gamepadData, setGamepadData] = useState<null | { buttons: number[]; axes: number[] }>(null);
   const [animationFrameId, setAnimationFrameId] = useState<number | null>(null);
@@ -89,12 +89,8 @@ const GamepadVisualizer = () => {
 
   if (connectedGamepadIndex === null) {
     return (
-      <div
-        className="gamepad-visualizer"
-        style={{
-        }}
-      >
-        <h4 style={{ fontSize: "14px", color: "#666" }}>No Gamepad Connected</h4>
+      <div className="gamepad-visualizer">
+        <h4>No Gamepad Connected</h4>
       </div>
     );
   }
