@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
-import ROSConnectionForm from './ROSConnectionForm';
-import Dashboard from './Dashboard';
-import Calibrate from './Calibrate';
+import ConnectionForm from './tabs/ConnectionForm';
+import Dashboard from './tabs/Dashboard';
+import Drive from './tabs/Drive';
 import { useROS } from './ROSContext';
 
-type page = 'Dashboard' | 'Calibrate';
+type page = 'Dashboard' | 'Drive';
 
 const MainPage: React.FC = () => {
   const { ros } = useROS();
-  const tabs: page[] = ['Dashboard', 'Calibrate'];
+  const tabs: page[] = ['Dashboard', 'Drive'];
 
 
   const { status } = useROS();
   const [page, setPage] = useState<page>('Dashboard');
+
   const pageComponent = (page: page) => {
     switch (page) {
       case 'Dashboard':
         return <Dashboard />;
-      case 'Calibrate':
-        return <Calibrate />;
+      case 'Drive':
+        return <Drive />;
     }
   }
-
 
   if (status === 'Connected') {
     return <div className="dashboard-container">
@@ -43,7 +43,7 @@ const MainPage: React.FC = () => {
       {pageComponent(page)}
     </div>
   }
-  return <ROSConnectionForm />;
+  return <ConnectionForm />;
 };
 
 export default MainPage;

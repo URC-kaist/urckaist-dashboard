@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useROS } from "./ROSContext";
+import { useROS } from "../../ROSContext";
 import ROSLIB from "roslib";
 import "./GamepadVisualizer.css";
 
@@ -17,13 +17,15 @@ const GamepadVisualizer: React.FC = () => {
         ros: ros as ROSLIB.Ros,
         name: "/gamepad",
         messageType: "sensor_msgs/Joy",
+        queue_size: 1, // Set the queue size to 1, no backlog
+        throttle_rate: 10, // Set the throttle rate to 10ms
       });
       setGamePadTopic(gamePadTopic);
     }
 
     const onGamepadConnected = (event: GamepadEvent) => {
       console.log("Gamepad connected:", event.gamepad);
-      setConnectedGamepadIndex(event.gamepad.index); // Track the gamepad index
+      setConnectedGamepadIndex(event.gamepad.index);
       startGamepadLoop(event.gamepad.index);
     };
 

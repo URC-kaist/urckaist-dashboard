@@ -4,11 +4,11 @@ import './App.css';
 import MainPage from './MainPage';
 
 const App: React.FC = () => {
-	return (
-		<ROSProvider>
-			<MainPage />
-		</ROSProvider>
-	);
+  return (
+    <ROSProvider>
+      <MainPage />
+    </ROSProvider>
+  );
 };
 
 export default App;

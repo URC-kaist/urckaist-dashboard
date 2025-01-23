@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useROS } from "./ROSContext";
+import { useROS } from "../../ROSContext";
 import ROSLIB from "roslib";
-import GamepadVisualizer from "./GamepadVisualizer";
+import GamepadVisualizer from "../../components/GamePadVisualizer";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
-const Calibrate: React.FC = () => {
+const Drive: React.FC = () => {
   const { ros } = useROS();
 
   const [currentSpeed, setCurrentSpeed] = useState<ROSLIB.Message>();
@@ -22,7 +22,7 @@ const Calibrate: React.FC = () => {
 
     cmdVel.subscribe((message: ROSLIB.Message) => {
       setVelocityData((prevData) => {
-        prevData.push({ time: Date.now(), velocity: message.linear.y });
+        prevData.push({ time: Date.now(), velocity: (message as any).linear.y });
         return prevData.length >= 500 ? prevData.slice(-500) : prevData;
       });
       // setVelocityData((prevData) => [
@@ -38,8 +38,8 @@ const Calibrate: React.FC = () => {
 
   return <div>
     <h1>Calibrate</h1>
-    {currentSpeed && <p>Current speed: {currentSpeed.linear.y} m/s</p>}
-    {currentSpeed && <p>Current angle: {currentSpeed.angular.z} rad/s</p>}
+    {currentSpeed && <p>Current speed: {(currentSpeed as any).linear.y} m/s</p>}
+    {currentSpeed && <p>Current angle: {(currentSpeed as any).angular.z} rad/s</p>}
     <GamepadVisualizer />
     <LineChart
       width={600}
@@ -57,4 +57,4 @@ const Calibrate: React.FC = () => {
   </div>;
 };
 
-export default Calibrate;
+export default Drive;

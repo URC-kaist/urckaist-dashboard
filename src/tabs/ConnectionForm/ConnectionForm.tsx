@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useROS } from './ROSContext';
+import { useROS } from '../../ROSContext';
 import { info } from '@tauri-apps/plugin-log';
 import { invoke } from '@tauri-apps/api/core';
-import './RosConnectionForm.css';
+import './ConnectionForm.css';
 
-const ROSConnectionForm: React.FC = () => {
+const ConnectionForm: React.FC = () => {
   const [ip, setIp] = useState<string>('');
   const [port, setPort] = useState<string>('9090');
   const [macAddress, setMacAddress] = useState<string>('');
@@ -110,7 +110,6 @@ const ROSConnectionForm: React.FC = () => {
           />
         </label>
         <button type="submit">Rover Startup</button>
-        {/* Show the booting/connected message */}
         {connectionMessage && <div>{connectionMessage}</div>}
 
       </form>
@@ -151,4 +150,4 @@ const ROSConnectionForm: React.FC = () => {
   );
 };
 
-export default ROSConnectionForm;
+export default ConnectionForm;

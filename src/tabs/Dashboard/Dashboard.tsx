@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useROS } from './ROSContext';
-import VideoStream from './VideoStream';
+import { useROS } from '../../ROSContext';
+import VideoStream from '../../VideoStream';
 import { invoke } from '@tauri-apps/api/core';
 import './Dashboard.css';
 import Logs from './Logs';
-import Controller from './Controller';
+import GamepadVisualizer from '../../components/GamePadVisualizer';
 import ROSLIB from 'roslib';
 
 const Dashboard: React.FC = () => {
@@ -179,7 +179,7 @@ const Dashboard: React.FC = () => {
       </main>
 
       <aside className="dashboard-control">
-        <Controller />
+        <GamepadVisualizer />
         <Logs />
       </aside>
     </section>
