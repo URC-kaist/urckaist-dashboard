@@ -76,6 +76,9 @@ const Dashboard: React.FC = () => {
 
     // For each topic in the map, create a subscription
     topics.forEach((type, topic) => {
+      if (type === 'sensor_msgs/msg/Image' || type === 'sensor_msgs/msg/CompressedImage' || type === 'theora_image_transport/msg/Packet') {
+        return;
+      }
       const subscriber = new ROSLIB.Topic({
         ros,
         name: topic,
