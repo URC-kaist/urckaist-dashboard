@@ -6,32 +6,46 @@
   background-color: #f5f5f5; /* Ensures consistent background */
 }
 
-.dashboard-header {
+.tab-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #3b3f51;
   color: white;
   padding: 10px 20px;
 }
 
-.dashboard-header h1 {
-  margin: 0;
-}
-
-.dashboard-header button {
+.disconnect-button {
   background-color: #ff4d4d;
   color: white;
   border: none;
   border-radius: 5px;
   padding: 10px 15px;
+  margin-left: 20px;
   font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.dashboard-header button:hover {
+.disconnect-button:hover {
   background-color: #cc0000;
+}
+
+.tab-item {
+  flex: 1;
+  padding: 10px 15px;
+  text-align: center;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.tab-item:hover {
+  color: #6200ea;
+}
+
+.tab-item.active {
+  font-weight: bold;
+  color: #000000;
+  border-bottom: 3px solid #6200ea;
 }
 
 /* Main Dashboard Layout */
