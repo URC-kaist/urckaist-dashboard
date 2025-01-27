@@ -1,2 +1,2 @@
-import GamepadVisualizer from './GamePadVisualizer.tsx';
-export default GamepadVisualizer;
+import GamePadVisualizer from './GamePadVisualizer.tsx';
+export default GamePadVisualizer;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useROS } from "../../ROSContext";
 import ROSLIB from "roslib";
-import "./GamepadVisualizer.css";
+import "./GamePadVisualizer.css";
 
 const GamepadVisualizer: React.FC = () => {
   const [connectedGamepadIndex, setConnectedGamepadIndex] = useState<number | null>(null);
