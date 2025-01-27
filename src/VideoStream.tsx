@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useROS } from './ROSContext';
 
 const VideoStream: React.FC<{ topic: Map<string, string> }> = ({ topic }) => {
