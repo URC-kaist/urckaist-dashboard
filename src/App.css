@@ -5,7 +5,7 @@ html, body {
   height: 100%;
   overscroll-behavior: none;
   overflow: hidden;
-  background-color: #f5f5f5; /* Overall page background color */
+  background-color: #f5f5f5;
 }
 
 body {

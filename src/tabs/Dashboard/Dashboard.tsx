@@ -135,7 +135,6 @@ const Dashboard: React.FC = () => {
   return (
     <section className="dashboard-main">
       <aside className="dashboard-sidebar">
-        <h2>System Info</h2>
         <NetworkPing />
         <h3>Nodes</h3>
         <ul>

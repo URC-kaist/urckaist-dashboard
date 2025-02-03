@@ -1,3 +1,20 @@
+.logs-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+
+.log-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .logs-header {
   display: flex;
   justify-content: space-between;
