@@ -16,6 +16,7 @@
 .tab-content {
   overflow-y: auto;
   margin: 10px 20px;
+  height: 100%;
 }
 
 .tab-item {

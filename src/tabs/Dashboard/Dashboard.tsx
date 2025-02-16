@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useROS } from '../../ROSContext';
 import VideoStream from '../../VideoStream';
-import { invoke } from '@tauri-apps/api/core';
 import './Dashboard.css';
 import Logs from './Logs';
-import GamepadVisualizer from '../../components/GamePadVisualizer';
+import GamepadVisualizer from 'components/GamePadVisualizer';
+import NetworkPing from 'components/NetworkPing';
 import ROSLIB from 'roslib';
+import Bms from './Bms';
 
 const Dashboard: React.FC = () => {
   const { ros } = useROS();
 
   const [topics, setTopics] = useState<Map<string, string>>(new Map());
   const [nodes, setNodes] = useState<string[]>([]);
-  const [services, setServices] = useState<string[]>([]);
   const [messages, setMessages] = useState<Map<string, any>>(new Map());
 
   // Helper to compare two Maps so we only update if topics truly changed.
@@ -46,9 +46,6 @@ const Dashboard: React.FC = () => {
     });
   };
 
-  const updateServices = () => {
-    ros?.getServices((result) => setServices(result));
-  };
 
   const updateNodes = () => {
     ros?.getNodes((result) => setNodes(result));
@@ -56,12 +53,10 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     updateTopics();
-    updateServices();
     updateNodes();
 
     const intervalId = setInterval(() => {
       updateTopics();
-      updateServices();
       updateNodes();
     }, 1000);
 
@@ -83,6 +78,7 @@ const Dashboard: React.FC = () => {
         ros,
         name: topic,
         messageType: type,
+        throttle_rate: 100,
       });
 
       subscriber.subscribe((message) => {
@@ -136,16 +132,11 @@ const Dashboard: React.FC = () => {
     <section className="dashboard-main">
       <aside className="dashboard-sidebar">
         <NetworkPing />
+        <Bms />
         <h3>Nodes</h3>
         <ul>
           {nodes.map((node) => (
             <li key={node}>{node}</li>
-          ))}
-        </ul>
-        <h3>Services</h3>
-        <ul>
-          {services.map((service) => (
-            <li key={service}>{service}</li>
           ))}
         </ul>
       </aside>
@@ -188,26 +179,5 @@ const Dashboard: React.FC = () => {
   );
 };
 
-const NetworkPing: React.FC = () => {
-  const { server } = useROS();
-  const [ping, setPing] = useState<number | string>('N/A');
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      invoke('ping_ip', {
-        host: server,
-        timeout: 1000,
-      }).then((result) => {
-        setPing(result as number);
-      }).catch((e) => {
-        setPing(e);
-      })
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [server]);
-
-  return <span>Network RTT: {typeof ping === 'number' ? ping + 'ms' : ping}</span>;
-};
 
 export default Dashboard;
