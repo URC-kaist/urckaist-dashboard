@@ -10,7 +10,6 @@ const GamepadVisualizer: React.FC = () => {
   const [gamePadTopic, setGamePadTopic] = useState<ROSLIB.Topic | null>(null);
   const { ros } = useROS();
 
-
   useEffect(() => {
     if (ros) {
       const gamePadTopic = new ROSLIB.Topic({
@@ -60,17 +59,32 @@ const GamepadVisualizer: React.FC = () => {
   }, [connectedGamepadIndex]);
 
   const startGamepadLoop = (index: number) => {
+    const deadZone = 0.05;
     const updateGamepadData = () => {
       const gamepad = navigator.getGamepads()[index];
       if (gamepad) {
+        // Process the first four axes (joystick axes) with a dead zone threshold
+        const processedAxes = gamepad.axes.map((axis, idx) => {
+          let value = parseFloat(axis.toFixed(2));
+          if (idx < 4 && Math.abs(value) < deadZone) {
+            return 0;
+          }
+          return value;
+        });
+
         setGamepadData({
           buttons: gamepad.buttons.map((button) => button.value),
-          axes: gamepad.axes.map((axis) => parseFloat(axis.toFixed(2))),
+          axes: processedAxes,
         });
+
         const gamePadMessage = new ROSLIB.Message({
           buttons: gamepad.buttons.map((button) => button.pressed),
-          axes: [...gamepad.axes, gamepad.buttons[6].value, gamepad.buttons[7].value], // 4 joystick axes and 2 trigger axes
-        })
+          axes: [
+            ...processedAxes,
+            gamepad.buttons[6] ? gamepad.buttons[6].value : 0,
+            gamepad.buttons[7] ? gamepad.buttons[7].value : 0
+          ],
+        });
         if (gamePadTopic) {
           gamePadTopic.publish(gamePadMessage);
         }
@@ -133,7 +147,7 @@ const GamepadVisualizer: React.FC = () => {
         <rect
           x={width / 2 - 10 - radius * 2 - 20}
           y={circleHeight + radius - buttons[6] * radius * 2} // Left trigger value
-          width="10" // Left trigger value
+          width="10"
           height={buttons[6] * radius * 2}
           fill="green"
         />
@@ -143,7 +157,7 @@ const GamepadVisualizer: React.FC = () => {
         <rect
           x={width / 2 + 10 + radius * 2 + 10}
           y={circleHeight + radius - buttons[7] * radius * 2} // Right trigger value
-          width="10" // Right trigger value
+          width="10"
           height={buttons[7] * radius * 2}
           fill="green"
         />

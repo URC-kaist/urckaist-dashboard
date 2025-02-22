@@ -25,3 +25,23 @@
   overflow-y: auto;
 }
 
+.waypoint-editor {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.waypoint-editor input {
+  margin-right: 5px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  flex: 1;
+}
+
+.waypoint-editor button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
