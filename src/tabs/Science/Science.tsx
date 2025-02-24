@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useROS } from "../../ROSContext";
-import ROSLIB from "roslib";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
-import ToggleSwitch from "../../components/DevModeToggle/DevModeToggle";
+import './Science.css';
 
-import PanoramicImage from './public/pamorama_example.jpeg';
+import PanoramicImage from './public/panorama_example.jpeg';
+import Scale from './public/scale.png';
 
 const Science: React.FC = () => {
   const { ros } = useROS();
 
   return <div>
+    <div className="panorama">
+        <img src={PanoramicImage} alt="Panoramic Image from Rover" className="panoramic-image"/> 
+        <img src={Scale} className="scale"/>
+    </div>
     
-    <img src={PanoramicImage} alt="Panoramic Image from Rover" className="panoramic-image"/>
     
   </div>;
 };

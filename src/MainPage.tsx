@@ -5,6 +5,7 @@ import Drive from './tabs/Drive';
 import './MainPage.css';
 import { useROS } from './ROSContext';
 import PID from './tabs/PID';
+import Science from 'tabs/Science/Science';
 
 type page = 'Dashboard' | 'Drive' | 'PID_Debug' | 'Science';
 
@@ -25,7 +26,7 @@ const MainPage: React.FC = () => {
       case 'PID_Debug':
         return <PID />;
       case 'Science':
-        return <PID />;
+        return <Science />;
     }
   }
 
