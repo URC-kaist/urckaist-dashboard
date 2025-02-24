@@ -1,0 +1,25 @@
+.network-ping {
+  padding: 5px;
+  display: flex;
+}
+
+.ping-label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.ping-value {
+  font-weight: bold;
+}
+
+.ping-value.good {
+  color: #27ae60; /* Green for good ping */
+}
+
+.ping-value.warning {
+  color: #e67e22; /* Orange for high/bad ping */
+}
+
+.ping-value.error {
+  color: #e74c3c; /* Red for errors */
+}

@@ -1,6 +1,6 @@
 [package]
 name = "mr2-dashboard"
-version = "0.0.3"
+version = "0.0.5"
 description = "URC KAIST Rover Dashboard"
 authors = ["gmmyung"]
 edition = "2021"

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ConnectionForm from './tabs/ConnectionForm';
 import Dashboard from './tabs/Dashboard';
 import Drive from './tabs/Drive';
+import './MainPage.css';
 import { useROS } from './ROSContext';
 import PID from './tabs/PID';
 
@@ -29,7 +30,7 @@ const MainPage: React.FC = () => {
   }
 
   if (status === 'Connected') {
-    return <div className="dashboard-container">
+    return <div className="main-page">
       <header className="tab-bar">
         {tabs.map((tab) => (
           <button
@@ -45,7 +46,9 @@ const MainPage: React.FC = () => {
           className="disconnect-button"
         >Disconnect</button>
       </header>
-      {pageComponent(page)}
+      <div className="tab-content">
+        {pageComponent(page)}
+      </div>
     </div>
   }
   return <ConnectionForm />;
