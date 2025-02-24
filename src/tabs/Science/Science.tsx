@@ -3,6 +3,8 @@ import ScienceMission from './ScienceMission';
 import Stratigraphy from './Stratigraphy';
 import './Science.css';
 import Panorama from './Panorama/Panorama';
+import Soil from './Soil';
+import Pump from './Pump';
 
 const Science: React.FC = () => {
   return <section className="science-main">
@@ -16,10 +18,10 @@ const Science: React.FC = () => {
       <Stratigraphy />
     </div>
     <div className="soil">
-      Soil
+      <Soil />
     </div>
     <div className="pump">
-      pump
+      <Pump />
     </div>
   </section>;
 };
