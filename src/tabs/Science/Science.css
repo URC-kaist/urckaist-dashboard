@@ -1,0 +1,6 @@
+.panoramic-image {
+    width: 1280px;
+    height: 160px;
+    overflow: hidden;
+    position: relative;
+}

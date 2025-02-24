@@ -3,12 +3,13 @@ import ConnectionForm from './tabs/ConnectionForm';
 import Dashboard from './tabs/Dashboard';
 import Drive from './tabs/Drive';
 import { useROS } from './ROSContext';
+import PID from './tabs/PID';
 
-type page = 'Dashboard' | 'Drive';
+type page = 'Dashboard' | 'Drive' | 'PID_Debug' | 'Science';
 
 const MainPage: React.FC = () => {
   const { ros } = useROS();
-  const tabs: page[] = ['Dashboard', 'Drive'];
+  const tabs: page[] = ['Dashboard', 'Drive', 'PID_Debug', 'Science'];
 
 
   const { status } = useROS();
@@ -20,6 +21,10 @@ const MainPage: React.FC = () => {
         return <Dashboard />;
       case 'Drive':
         return <Drive />;
+      case 'PID_Debug':
+        return <PID />;
+      case 'Science':
+        return <PID />;
     }
   }
 
