@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { useROS } from "../../ROSContext";
-import ROSLIB from "roslib";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
-import ToggleSwitch from "../../components/DevModeToggle/DevModeToggle";
-
-import PanoramicImage from './public/pamorama_example.jpeg';
+import React from 'react';
+import ScienceMission from './ScienceMission';
+import './Science.css';
 
 const Science: React.FC = () => {
-  const { ros } = useROS();
-
-  return <div>
-    
-    <img src={PanoramicImage} alt="Panoramic Image from Rover" className="panoramic-image"/>
-    
-  </div>;
+  return <section className="science-main">
+    <div className="panoramic">
+      Panorama
+    </div>
+    <div className="science-mission">
+      <ScienceMission />
+    </div>
+    <div className="science-data">
+      ScienceData
+    </div>
+  </section>;
 };
 
 export default Science;
