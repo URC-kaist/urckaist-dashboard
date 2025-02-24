@@ -1,12 +1,15 @@
 .science-main {
   display: grid;
   grid-template-rows:  1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 15px;
   height: 100%;
   box-sizing: border-box;
 }
 
 .panorama-container {
+  grid-column-start: 1;
+  grid-column-end: 4;
   background-color: #ffffff;
   border-radius: 10px;
   padding: 15px;
@@ -18,6 +21,9 @@
 }
 
 .science-mission {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row: 2;
   background-color: #ffffff;
   border-radius: 10px;
   padding: 15px;
@@ -28,7 +34,29 @@
   max-height: 100%;
 }
 
-.science-data {
+.stratigraphy {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.soil {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.pump {
   background-color: #ffffff;
   border-radius: 10px;
   padding: 15px;

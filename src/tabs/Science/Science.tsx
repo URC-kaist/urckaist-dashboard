@@ -1,5 +1,6 @@
 import React from 'react';
 import ScienceMission from './ScienceMission';
+import Stratigraphy from './Stratigraphy';
 import './Science.css';
 import Panorama from './Panorama/Panorama';
 
@@ -11,8 +12,14 @@ const Science: React.FC = () => {
     <div className="science-mission">
       <ScienceMission />
     </div>
-    <div className="science-data">
-      ScienceData
+    <div className="stratigraphy">
+      <Stratigraphy />
+    </div>
+    <div className="soil">
+      Soil
+    </div>
+    <div className="pump">
+      pump
     </div>
   </section>;
 };
