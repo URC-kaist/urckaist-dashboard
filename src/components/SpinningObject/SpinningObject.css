@@ -1,0 +1,28 @@
+/* index.css */
+.SpinningObject {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center child horizontally */
+    justify-content: center;
+    height: 100%; /* Just to show the container size */
+  }
+  
+.SpinButton {
+    width: 100%;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    background-color: #807c7c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+.SpinButton:hover {
+    background-color: #cccccc;
+  }

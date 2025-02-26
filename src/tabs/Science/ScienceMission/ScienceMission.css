@@ -1,0 +1,46 @@
+.blinking-arrow {
+    animation: blink 1s infinite alternate;
+  }
+  
+  @keyframes blink {
+    0% {
+      fill: blue;
+    }
+    100% {
+      fill: gray;
+    }
+  }
+
+.container3d {
+    display: flex;
+}
+
+.column1 {
+    width: 30%;   
+}
+
+.column2 {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 5%;   
+}
+
+.arrow {
+    transform: translate(0px, -20px);
+}
+
+.column3 {
+    width: 30%;   
+}
+
+.column4 {   
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 5%;  
+}
+
+.column5 {
+    width: 30%;   
+}
