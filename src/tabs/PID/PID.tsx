@@ -8,15 +8,15 @@ const PID: React.FC = () => {
   const { ros } = useROS();
 
   const [currentSpeed, setCurrentSpeed] = useState<ROSLIB.Message>(); // Saves a sort of state in the tab. use setCurrentSpeed to change that state.
-  const [velocityData, setVelocityData] = useState<{ time: number; velocity: number }[]>([]); 
+  const [velocityData, setVelocityData] = useState<{ time: number; velocity: number }[]>([]);
 
   const [isToggled, setIsToggled] = useState(false);
   const [debugOn, setDebugText] = useState("Not turned on yet");
 
   const setDebug = new ROSLIB.Service({
-    ros: ros, 
-    name: '/steering_node/set_debug_mode', 
-    serviceType: 'std_srvs/SetBool', 
+    ros: ros as ROSLIB.Ros,
+    name: '/steering_node/set_debug_mode',
+    serviceType: 'std_srvs/SetBool',
   });
 
   const handleToggleChange = (checked: boolean) => {
@@ -68,9 +68,9 @@ const PID: React.FC = () => {
   return <div>
     <h1>Calibrate</h1>
     <ToggleSwitch
-        label="Debug Mode Toggle"
-        defaultChecked={isToggled}
-        onChange={handleToggleChange}
+      label="Debug Mode Toggle"
+      defaultChecked={isToggled}
+      onChange={handleToggleChange}
     />
     <p>{debugOn}</p>
     {currentSpeed && <p>Current speed: {(currentSpeed as any).linear.y} m/s</p>}
@@ -88,7 +88,7 @@ const PID: React.FC = () => {
       <Legend />
       <Line type="monotone" dataKey="velocity" stroke="#8884d8" isAnimationActive={false} dot={false} />
     </LineChart>
-    
+
   </div>;
 };
 

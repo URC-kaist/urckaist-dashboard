@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 
@@ -24,7 +24,7 @@ const SpinningBox: React.FC<{ isSpinning: boolean }> = ({ isSpinning }) => {
 };
 
 const SpinningObject3: React.FC = () => {
-  
+
   const [isSpinning, setIsSpinning] = useState(false);
 
   // Function to toggle the spinning state when the button is clicked
@@ -34,10 +34,10 @@ const SpinningObject3: React.FC = () => {
 
   return (
     <div className='SpinningObject3'>
-      <Canvas camera={{fov: 50, far: 5000, position: [0,-400,-700], rotation: [0,0,100]}} style={{width: '100%'}}>
+      <Canvas camera={{ fov: 50, far: 5000, position: [0, -400, -700], rotation: [0, 0, 100] }} style={{ width: '100%' }}>
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
-        <OrbitControls/>
+        <OrbitControls />
 
         {/* 3D Model */}
         <SpinningBox isSpinning={isSpinning} />
