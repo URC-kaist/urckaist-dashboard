@@ -6,12 +6,13 @@ import './MainPage.css';
 import { useROS } from './ROSContext';
 import PID from './tabs/PID';
 import Science from 'tabs/Science/Science';
+import Misc from 'tabs/Misc';
 
-type page = 'Dashboard' | 'Drive' | 'PID_Debug' | 'Science';
+type page = 'Dashboard' | 'Drive' | 'PID_Debug' | 'Science' | 'Misc';
 
 const MainPage: React.FC = () => {
   const { ros } = useROS();
-  const tabs: page[] = ['Dashboard', 'Drive', 'PID_Debug', 'Science'];
+  const tabs: page[] = ['Dashboard', 'Drive', 'PID_Debug', 'Science', 'Misc'];
 
 
   const { status } = useROS();
@@ -27,6 +28,8 @@ const MainPage: React.FC = () => {
         return <PID />;
       case 'Science':
         return <Science />;
+      case 'Misc':
+        return <Misc />;
     }
   }
 
